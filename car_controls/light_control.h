@@ -2,6 +2,7 @@
 #define __light_control_h__
 
 //#include "global_vars.h"
+//these controls rely on bluetooth thus have to be the same period
 
 //relys on input from button_press
 enum front_lights_control{
@@ -13,14 +14,14 @@ int front_lights_Tck(int state){
 		case fl_off:
 		if(button_press == 'W'){
 			//turn lights on ********
-			PORTB = 0x02;
+			PORTB = SetBit(PORTB, 2, 1);
 			state = fl_on;
 		}
 		break;
 		case fl_on:
 		if(button_press == 'w'){
 			//turn lights off *********
-			PORTB = 0x00;
+			PORTB = SetBit(PORTB, 2, 0);
 			state = fl_off;
 		}
 		break;
@@ -42,14 +43,14 @@ int back_lights_Tck(int state){
 		case bl_off:
 		if(button_press == 'U'){
 			//turn lights on ********
-			PORTB = 0x02;
+			PORTB = SetBit(PORTB, 3, 1);
 			state = bl_on;
 		}
 		break;
 		case bl_on:
 		if(button_press == 'u'){
 			//turn lights off *********
-			PORTB = 0x00;
+			PORTB = SetBit(PORTB, 3, 0);
 			state = bl_off;
 		}
 		break;
