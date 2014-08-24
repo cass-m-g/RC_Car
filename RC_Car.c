@@ -17,6 +17,22 @@
 #include <avr/interrupt.h>
 #include "light_control.h"
 #include "blinking_control.h"
+#include "eye_controls.h"
+#include "movement_controls.h"
+
+
+//Declaration of global_vars:
+
+
+unsigned char button_press = 0;
+// 0 -- forward, 1 -- right, 2 -- left
+unsigned char look_direction = 0;
+unsigned char eye_location = 6;
+unsigned char current_car_state = 'S';
+// declare car_speed here *********
+double car_speed = 0;
+
+//end of global_vars
 
 typedef struct _task {
 	/*Tasks should have members that include: state, period,
@@ -26,53 +42,6 @@ typedef struct _task {
 	unsigned long int elapsedTime; //Time elapsed since last task tick
 	int (*TickFct)(int); //Task tick function
 } task;
-
-enum eye_control{
-	left, right, straight
-	};
-
-
-
-/* When turning right eyes turn this way and so on
-		this task can be deleted when have the turning mechanism (that can control eyemovement)
-*/
-int eye_control_Tck(int state){
-	switch(state){
-		case straight:
-			look_direction = 1;
-			eye_look_direction(eye_location, look_direction);
-			state = right;
-			break;
-		case left:
-			look_direction = 0;
-			eye_look_direction(eye_location, look_direction);
-			state = straight;
-			break;
-		case right:
-			look_direction = 2;
-			eye_look_direction(eye_location, look_direction);
-			state = left;
-			break;
-		default:
-			state = left;
-			
-	}
-	
-	switch(state){
-		case left:
-			//eye_look_left(6);
-			//look_direction = 2;
-			break;
-		case right:
-			//eye_look_right(6);
-			//look_direction = 1;
-			break;
-	}
-	
-	return state;
-}
-
-
 
 /*  Bluetooth control commands:
 *		Forward -- F
@@ -116,6 +85,7 @@ int bluetooth_Tck(int state){
 			if(USART_HasReceived()){
 				button_press = USART_Receive();
 				state = b_data;
+				set_car_speed();
 			}
 			break;
 		case b_data:
@@ -129,6 +99,71 @@ int bluetooth_Tck(int state){
 	return state;
 }
 
+
+
+enum car_move_control{
+	car_stop, car_go
+};
+
+int car_move_Tck(int state){
+	switch(state){
+		case car_stop:
+			if(button_press != 'S' && button_press != NULL){
+				state = car_go;
+				current_car_state = button_press;
+				
+				//change look direction
+				set_look_direction();
+			}
+			break;
+			
+		case car_go:
+			if(button_press == 'S'){
+				state = car_stop;
+				current_car_state = button_press;
+				
+				//change look direction
+				set_look_direction();
+			}
+			else if(button_press != current_car_state && button_press != NULL){
+				current_car_state = button_press;
+				
+				//change look direction
+				set_look_direction();		
+			}
+			break;
+		default:
+			state = car_stop;
+			current_car_state = 'S';
+			break;		
+	}
+	
+	switch(state){
+		case car_stop:
+			//stop car***********
+			break;
+		case car_go:
+			//make car go*************
+			set_car_movement();
+			break;			
+	}
+	
+	return state;
+}
+
+/*
+enum speed_control{
+	
+};
+
+int speed_Tck(int state){
+	switch(state){
+		
+	}
+	
+	return state;
+};
+*/
 int main(void)
 {
 	DDRC = 0xFF; PORTC = 0x00; 
@@ -145,27 +180,42 @@ int main(void)
 	
 	
 	unsigned long int GCD = 25;
-	unsigned long int task_eye_Period = 1000, task_eye_blink_period = 150;
+	unsigned long int task_bluetooth_Period = 25, task_eye_blink_period = 150;
 	
-	static task task_eye, task_eye_blink;
+	static task task_bluetooth, task_eye_blink, task_front_lights, task_back_lights, task_car_movement;
 	
-	task *tasks[] = {&task_eye, &task_eye_blink};
-	
-	task_eye.state = right;
-	task_eye.period = task_eye_Period/GCD;
-	task_eye.elapsedTime = task_eye_Period/GCD;
-	task_eye.TickFct = &eye_control_Tck;
-	
-	task_eye_blink.state = wait;
+	task *tasks[] = {&task_bluetooth, &task_eye_blink, &task_front_lights, &task_back_lights, &task_car_movement};
+		
+	task_bluetooth.state = b_wait;
+	task_bluetooth.period = task_bluetooth_Period/GCD;
+	task_bluetooth.elapsedTime = task_bluetooth_Period/GCD;
+	task_bluetooth.TickFct = &bluetooth_Tck;
+		
+	task_eye_blink.state = blink_wait;
 	task_eye_blink.period = task_eye_blink_period/GCD;
 	task_eye_blink.elapsedTime = task_eye_blink_period/GCD;
 	task_eye_blink.TickFct = &blink_control_Tck;
+	
+	task_front_lights.state = fl_off;
+	task_front_lights.period = task_bluetooth_Period/GCD;
+	task_front_lights.elapsedTime = task_bluetooth_Period/GCD;
+	task_front_lights.TickFct = &front_lights_Tck;
+	
+	task_back_lights.state = bl_off;
+	task_back_lights.period = task_bluetooth_Period/GCD;
+	task_back_lights.elapsedTime = task_bluetooth_Period/GCD;
+	task_back_lights.TickFct = &back_lights_Tck;
+	
+	task_car_movement.state = car_stop;
+	task_car_movement.period = task_bluetooth_Period/GCD;
+	task_car_movement.elapsedTime = task_bluetooth_Period/GCD;
+	task_car_movement.TickFct = &car_move_Tck;
 	
 	TimerSet(GCD);
 	TimerOn();
 	
 	unsigned short i;
-	const unsigned short numTasks = 2;//sizeof(tasks)/sizeof(task*);
+	const unsigned short numTasks = 5;//sizeof(tasks)/sizeof(task*);
 	
 	eye_look_direction(6, 0);
 	
@@ -173,7 +223,7 @@ int main(void)
 	
 	while(1) {
 		
-		/*
+		
 		for ( i = 0; i < numTasks; i++ ) {
 			// Task is ready to tick
 			if ( tasks[i]->elapsedTime >= tasks[i]->period ) {
@@ -185,7 +235,7 @@ int main(void)
 			}
 			tasks[i]->elapsedTime += 1;
 		}
-		*/
+		
 		while(!TimerFlag);
 		TimerFlag = 0;
 		
