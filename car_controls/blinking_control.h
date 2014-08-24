@@ -2,14 +2,14 @@
 #define __blink_control_h__
 
 enum blink_control{
-	wait, blink
+	blink_wait, blink
 };
 
 unsigned char blink_time = 0;
 
 int blink_control_Tck(int state){
 	switch(state){
-		case wait:
+		case blink_wait:
 		if (blink_time >= 35){
 			state = blink;
 			blink_eye(eye_location);
@@ -21,10 +21,10 @@ int blink_control_Tck(int state){
 		break;
 		case blink:
 		eye_look_direction(eye_location, look_direction);
-		state = wait;
+		state = blink_wait;
 		break;
 		default:
-		state = wait;
+		state = blink_wait;
 	}
 	
 	return state;
