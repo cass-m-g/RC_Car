@@ -20,11 +20,11 @@ int blink_control_Tck(int state){
 		}
 		break;
 		case blink:
-		eye_look_direction(eye_location, look_direction);
-		state = blink_wait;
-		break;
+			eye_look_direction(eye_location, look_direction);
+			state = blink_wait;
+			break;
 		default:
-		state = blink_wait;
+			state = blink_wait;
 	}
 	
 	return state;
