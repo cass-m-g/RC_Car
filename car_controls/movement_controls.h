@@ -118,9 +118,9 @@ void set_car_movement(){
 			break;
 		default:
 			//forward
-			PORTB = SetBit(PORTB, 0, 1);
+			PORTB = SetBit(PORTB, 0, 0);
 			PORTB = SetBit(PORTB, 1, 0);
-			PORTB = SetBit(PORTB, 2, 1);
+			PORTB = SetBit(PORTB, 2, 0);
 			PORTB = SetBit(PORTB, 3, 0);
 			break;
 	}
