@@ -158,7 +158,7 @@ int main(void)
 	DDRC = 0xFF; PORTC = 0x00; 
 	DDRD = 0xFE; PORTD = 0x01;
 	DDRB = 0xFF; PORTB = 0x00;
-	DDRA = 0x00; PORTA = 0xFF;
+	DDRA = 0xFF; PORTA = 0x00;
 	
 	LCD_init();
 	USART_Init(9600);
