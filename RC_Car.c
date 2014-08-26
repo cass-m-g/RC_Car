@@ -141,6 +141,8 @@ int car_move_Tck(int state){
 	switch(state){
 		case car_stop:
 			//stop car***********
+			set_car_stop();
+			
 			break;
 		case car_go:
 			//make car go*************
@@ -151,19 +153,6 @@ int car_move_Tck(int state){
 	return state;
 }
 
-/*
-enum speed_control{
-	
-};
-
-int speed_Tck(int state){
-	switch(state){
-		
-	}
-	
-	return state;
-};
-*/
 int main(void)
 {
 	DDRC = 0xFF; PORTC = 0x00; 
