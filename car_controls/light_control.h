@@ -14,14 +14,16 @@ int front_lights_Tck(int state){
 		case fl_off:
 		if(button_press == 'W'){
 			//turn lights on ********
-			PORTB = SetBit(PORTB, 1, 1);
+			PORTA = SetBit(PORTA, 0, 1);
+			PORTA = SetBit(PORTA, 1, 1);
 			state = fl_on;
 		}
 		break;
 		case fl_on:
 		if(button_press == 'w'){
 			//turn lights off *********
-			PORTB = SetBit(PORTB, 1, 0);
+			PORTA = SetBit(PORTA, 0, 0);
+			PORTA = SetBit(PORTA, 1, 1);
 			state = fl_off;
 		}
 		break;
@@ -43,14 +45,14 @@ int back_lights_Tck(int state){
 		case bl_off:
 		if(button_press == 'U'){
 			//turn lights on ********
-			PORTB = SetBit(PORTB, 2, 1);
+			//PORTB = SetBit(PORTB, 2, 1);
 			state = bl_on;
 		}
 		break;
 		case bl_on:
 		if(button_press == 'u'){
 			//turn lights off *********
-			PORTB = SetBit(PORTB, 2, 0);
+			//PORTB = SetBit(PORTB, 2, 0);
 			state = bl_off;
 		}
 		break;
