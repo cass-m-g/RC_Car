@@ -54,6 +54,8 @@ void set_car_stop(){
 	PORTB = SetBit(PORTB, 1, 0);
 	PORTB = SetBit(PORTB, 2, 0);
 	PORTB = SetBit(PORTB, 3, 0);
+	
+	//turn on break lights**********
 }
 
 
@@ -116,12 +118,22 @@ void set_car_movement(){
 			PORTB = SetBit(PORTB, 3, 0);
 			//back right
 			break;
+		case 'D':
+			//stop all bluetooth disconected!!!
+			
+			PORTB = SetBit(PORTB, 0, 1);
+			PORTB = SetBit(PORTB, 1, 1);
+			PORTB = SetBit(PORTB, 2, 1);
+			PORTB = SetBit(PORTB, 3, 1);
+			
+			//manage emergency lights************
+			//emergency lights will flash on and off (250 ms)
+			//this can also be controlled by a button
+			
+			break;
 		default:
-			//forward
-			PORTB = SetBit(PORTB, 0, 0);
-			PORTB = SetBit(PORTB, 1, 0);
-			PORTB = SetBit(PORTB, 2, 0);
-			PORTB = SetBit(PORTB, 3, 0);
+			//stop
+			set_car_stop();
 			break;
 	}
 }
