@@ -25,6 +25,8 @@
 
 
 unsigned char button_press = 0;
+extern unsigned char button_press_movement = NULL;
+extern unsigned char button_press_speed = NULL;
 // 0 -- forward, 1 -- right, 2 -- left
 unsigned char look_direction = 0;
 unsigned char eye_location = 6;
@@ -84,6 +86,7 @@ int bluetooth_Tck(int state){
 		case b_wait:
 			if(USART_HasReceived()){
 				button_press = USART_Receive();
+				set_button_presses();
 				state = b_data;
 				set_car_speed();
 			}
@@ -108,9 +111,9 @@ enum car_move_control{
 int car_move_Tck(int state){
 	switch(state){
 		case car_stop:
-			if(button_press != 'S' && button_press != NULL){
+			if(button_press_movement != 'S' && button_press_movement != NULL){
 				state = car_go;
-				current_car_state = button_press;
+				current_car_state = button_press_movement;
 				
 				//change look direction
 				set_look_direction();
@@ -118,15 +121,15 @@ int car_move_Tck(int state){
 			break;
 			
 		case car_go:
-			if(button_press == 'S'){
+			if(button_press_movement == 'S'){
 				state = car_stop;
-				current_car_state = button_press;
+				current_car_state = button_press_movement;
 				
 				//change look direction
 				set_look_direction();
 			}
-			else if(button_press != current_car_state && button_press != NULL){
-				current_car_state = button_press;
+			else if(button_press_movement != current_car_state && button_press_movement != NULL){
+				current_car_state = button_press_movement;
 				
 				//change look direction
 				set_look_direction();		
