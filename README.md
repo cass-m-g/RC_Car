@@ -10,7 +10,7 @@ User Guide:
 
 Controls:
 -The arrow keys control the car’s movement ( up = forward, down = backward, right = right, left = left). 
--The top left hand corner button controls the headlights. 
+-The top left hand corner button controls the headlights.
 -The top left hand corner light flashes red when disconnected from the car and green when connected
 -The settings button allows you to connect to the HC-06 bluetooth module
 
