@@ -165,6 +165,7 @@ int main(void)
 	
 	LCD_init();
 	USART_Init(9600);
+	PWM_on();
 	
 	LCD_WriteCommand(0x0c);
 	LCD_ClearScreen();
