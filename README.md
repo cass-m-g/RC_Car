@@ -11,13 +11,13 @@ User Guide:
 
 Controls:
 
-	-The arrow keys control the car’s movement ( up = forward, down = backward, right = right, left = left). 
+   -The arrow keys control the car’s movement ( up = forward, down = backward, right = right, left = left). 
+ 	
+   -The top left hand corner button controls the headlights.
 	
-	-The top left hand corner button controls the headlights.
+   -The top left hand corner light flashes red when disconnected from the car and green when connected
 	
-	-The top left hand corner light flashes red when disconnected from the car and green when connected
-	
-	-The settings button allows you to connect to the HC-06 bluetooth module
+   -The settings button allows you to connect to the HC-06 bluetooth module
 
 
 The car starts off stopped with its brake lights on, when you move the car via controls brake lights turn off. The LCD mounted on the front of the car displays a face, when the car turns the eyes look in that direction. The car moves only while holding down the movement buttons, it is stopped otherwise. If the car becomes disconnected from the bluetooth android app than the car will stop.
