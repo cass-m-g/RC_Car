@@ -1,7 +1,7 @@
 RC_Car
 ======
 
-This report is an explanation of the design and implementation of a remote control car. The remote control car is controlled wirelessly through bluetooth via an android app. The android app I used to control my RC car is the Arduino Bluetooth RC Car on google playstore. The car communicates to the android app via a bluetooth module using USART. 
+This README file is an explanation of the design and implementation of a remote control car. The remote control car is controlled wirelessly through bluetooth via an android app. The android app I used to control my RC car is the Arduino Bluetooth RC Car on google playstore. The car communicates to the android app via a bluetooth module using USART. 
 The bluetooth module uses a SPP connection with a Braud Rate of 9600 which is default for android. When programming the microcontroller be sure to have CDVLK and JTAGEN deselected so that there is no issue with the USART. USART willl use the microcontroller’s internal clock which is by default set at 8 mHz.
 In this folder is the code for the car, along with some diagrams of the circuit. The diagrams which are included are for creating the H-Bridge and connecting the rest of the parts to the microcontroller. 
 
