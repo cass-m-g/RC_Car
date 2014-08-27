@@ -5,22 +5,29 @@ This report is an explanation of the design and implementation of a remote contr
 The bluetooth module uses a SPP connection with a Braud Rate of 9600 which is default for android. When programming the microcontroller be sure to have CDVLK and JTAGEN deselected so that there is no issue with the USART. USART willl use the microcontroller’s internal clock which is by default set at 8 mHz.
 In this folder is the code for the car, along with some diagrams of the circuit. The diagrams which are included are for creating the H-Bridge and connecting the rest of the parts to the microcontroller. 
 
+
+
+
 User Guide:
 
-	The car is controlled via the Arduino Bluetooth RC Car android app on google playstore. A picture of the app is provided labled android_app.jpg.
+The car is controlled via the Arduino Bluetooth RC Car android app on google playstore. A picture of the app is provided labled android_app.jpg.
+
 
 Controls:
 
-   -The arrow keys control the car’s movement ( up = forward, down = backward, right = right, left = left). 
- 	
-   -The top left hand corner button controls the headlights.
-	
-   -The top left hand corner light flashes red when disconnected from the car and green when connected
-	
-   -The settings button allows you to connect to the HC-06 bluetooth module
+	-The arrow keys control the car’s movement ( up = forward, down = backward, right = right, left = left). 
+	 	
+	-The top left hand corner button controls the headlights.
+		
+	-The top left hand corner light flashes red when disconnected from the car and green when connected
+		
+	-The settings button allows you to connect to the HC-06 bluetooth module
 
 
 The car starts off stopped with its brake lights on, when you move the car via controls brake lights turn off. The LCD mounted on the front of the car displays a face, when the car turns the eyes look in that direction. The car moves only while holding down the movement buttons, it is stopped otherwise. If the car becomes disconnected from the bluetooth android app than the car will stop.
+
+
+
 
 
 Technologies and Components Used:
@@ -65,9 +72,15 @@ Technologies and Components Used:
 	-AVR Studio 6 -- for programming microcontroller
 
 
+
+
+
 Demo Video:
 //add demo video link ********
 
+
+
+
 Source FIles:
 
-	//add source files with description of each ********
+//add source files with description of each ********
