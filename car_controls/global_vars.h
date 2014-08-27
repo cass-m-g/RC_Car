@@ -2,6 +2,8 @@
 #define __global_vars_h__
 
 extern unsigned char button_press;
+extern unsigned char button_press_movement;
+extern unsigned char button_press_speed;
 extern unsigned char look_direction;
 extern unsigned char eye_location;
 extern unsigned char current_car_state;
