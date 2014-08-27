@@ -32,8 +32,9 @@ The car starts off stopped with its brake lights on, when you move the car via c
 
 Technologies and Components Used:
 
-	-Android app controller can be found here: (https://play.google.com/store/apps/details?id=braulio.calle.bluetoothRCcontroller&hl=en). 
-	
+-Android app controller can be found here: (https://play.google.com/store/apps/details?id=braulio.calle.bluetoothRCcontroller&hl=en). 
+
+-HC-06 bluetooth module can be found here: (http://www.amazon.com/Arduino-Wireless-Bluetooth-Transceiver-Module/dp/B0093XAV4U/ref=sr_1_1?ie=UTF8&qid=1409133418&sr=-8-1&keywords=hc+06).	
 	-microcontroller -- atmega1284
 	
 	-2 DC Motors
@@ -47,9 +48,6 @@ Technologies and Components Used:
 	-8 1k ohm resistors -- used to create 2 H--Bridges
 	
 	-20x4 backlit LCD 
-	
-	-HC-06 bluetooth module can be found here: (http://www.amazon.com/Arduino-Wireless-Bluetooth-Transceiver-Module/dp/B0093XAV4U/ref=sr_1_1?ie=UTF8&qid=1409133418&sr=
-	-8-1&keywords=hc+06).
 	
 	-4 LEDs (2 red for brake lights, 2 blue for headlights)
 	
