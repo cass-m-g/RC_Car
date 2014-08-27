@@ -91,14 +91,14 @@ void set_car_stop(){
 	
 	//turn on break lights**********
 	PORTA = SetBit(PORTA, 2, 1);
-	PORTA = SetBit(PORTD, 5, 1);
+	PORTD = SetBit(PORTD, 5, 1);
 }
 
 
 void set_car_movement(){
 	//turn off brake lights if the car just stops then the break lights will turn back on
 	PORTA = SetBit(PORTA, 2, 0);
-	PORTA = SetBit(PORTD, 5, 0);
+	PORTD = SetBit(PORTD, 5, 0);
 	
 	switch(current_car_state){
 		case 'F':
