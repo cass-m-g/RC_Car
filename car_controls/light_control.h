@@ -23,7 +23,7 @@ int front_lights_Tck(int state){
 		if(button_press == 'w'){
 			//turn lights off *********
 			PORTA = SetBit(PORTA, 0, 0);
-			PORTA = SetBit(PORTA, 1, 1);
+			PORTA = SetBit(PORTA, 1, 0);
 			state = fl_off;
 		}
 		break;
