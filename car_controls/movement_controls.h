@@ -88,7 +88,10 @@ void set_car_stop(){
 	//PORTB = SetBit(PORTB, 1, 0);
 	//PORTB = SetBit(PORTB, 2, 0);
 	//PORTB = SetBit(PORTB, 3, 0);
-	set_PWM
+	set_PWM_PORTB7(0);
+	set_PWM_PORTB6(0);
+	set_PWM_PORTB4(0);
+	set_PWM_PORTB3(0);
 	
 	//turn on break lights**********
 	PORTA = SetBit(PORTA, 2, 1);
@@ -108,6 +111,10 @@ void set_car_movement(){
 		//PORTB = SetBit(PORTB, 1, 0);
 		//PORTB = SetBit(PORTB, 2, 1);
 		//PORTB = SetBit(PORTB, 3, 0);
+		set_PWM_PORTB7(max_car_speed);
+		set_PWM_PORTB6(max_car_speed);
+		set_PWM_PORTB4(max_car_speed);
+		set_PWM_PORTB3(max_car_speed);
 		
 		
 		break;
