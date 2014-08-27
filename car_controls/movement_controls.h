@@ -90,10 +90,16 @@ void set_car_stop(){
 	PORTB = SetBit(PORTB, 3, 0);
 	
 	//turn on break lights**********
+	PORTA = SetBit(PORTA, 2, 1);
+	PORTA = SetBit(PORTA, 3, 1);
 }
 
 
 void set_car_movement(){
+	//turn off brake lights if the car just stops then the break lights will turn back on
+	PORTA = SetBit(PORTA, 2, 0);
+	PORTA = SetBit(PORTA, 3, 0);
+	
 	switch(current_car_state){
 		case 'F':
 		//forward
@@ -155,10 +161,7 @@ void set_car_movement(){
 		case 'D':
 		//stop all bluetooth disconected!!!
 		
-		PORTB = SetBit(PORTB, 0, 0);
-		PORTB = SetBit(PORTB, 1, 0);
-		PORTB = SetBit(PORTB, 2, 0);
-		PORTB = SetBit(PORTB, 3, 0);
+		set_car_stop();
 		
 		//manage emergency lights************
 		//emergency lights will flash on and off (250 ms)
