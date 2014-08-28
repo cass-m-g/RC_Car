@@ -48,4 +48,5 @@ void motors_init()
 	
 	// initialize all PWMs to 0% duty cycle (braking)
 	M_off();
+	car_speed = 140;
 }
