@@ -11,13 +11,14 @@
 #include "global_vars.h"
 #include "bit.h"
 #include "timer.h"
+#include "PWM.h"
 #include "face_characters.h"
-#include "face_conrol.h"
+#include "face_control.h"
 #include "usart_atmega1284.h"
 #include <avr/interrupt.h>
 #include "light_control.h"
 #include "blinking_control.h"
-#include "eye_controls.h"
+#include "eye_control.h"
 #include "movement_controls.h"
 
 
@@ -165,7 +166,7 @@ int main(void)
 	
 	LCD_init();
 	USART_Init(9600);
-	PWM_on();
+	motors_init();
 	
 	LCD_WriteCommand(0x0c);
 	LCD_ClearScreen();
