@@ -4,10 +4,6 @@
 //for now left wheel B0 = forward B1 = back
 // right B2 = forward b3 = back
 
-
-//set max car speed***********
-double max_car_speed = 2.9; //this is in Hz
-
 void set_button_presses(){
 	button_press_movement = NULL;
 	button_press_speed = NULL;
@@ -25,6 +21,7 @@ void set_button_presses(){
 		case '9':
 		case 'q':
 			button_press_speed = button_press;
+			set_car_speed();
 			break;
 		
 		case 'F':
@@ -40,42 +37,56 @@ void set_button_presses(){
 			button_press_movement = button_press;
 			break;
 	}
+	
 }
 
+
+//0 --- fastest
+//255 -- stopped
 
 void set_car_speed(){
 	switch(button_press_speed){
 		case '0':
-		
+			car_speed = 140;
 		break;
 		case '1':
+		car_speed = 120;
 		
 		break;
 		case '2':
+		car_speed = 100;
 		
 		break;
 		case '3':
+		car_speed = 80;
 		
 		break;
 		case '4':
+		car_speed = 60;
 		
 		break;
 		case '5':
+		car_speed = 50;
 		
 		break;
 		case '6':
+		car_speed = 40;
 		
 		break;
 		case '7':
+		car_speed = 30;
 		
 		break;
 		case '8':
+		car_speed = 20;
 		
 		break;
 		case '9':
+		car_speed = 10;
 		
 		break;
 		case 'q':
+		car_speed = 0;
 		
 		break;
 	}
@@ -84,14 +95,7 @@ void set_car_speed(){
 
 void set_car_stop(){
 	
-	//PORTB = SetBit(PORTB, 0, 0);
-	//PORTB = SetBit(PORTB, 1, 0);
-	//PORTB = SetBit(PORTB, 2, 0);
-	//PORTB = SetBit(PORTB, 3, 0);
-	set_PWM_PORTB7(0);
-	set_PWM_PORTB6(0);
-	set_PWM_PORTB4(0);
-	set_PWM_PORTB3(0);
+	M_off();
 	
 	//turn on break lights**********
 	PORTA = SetBit(PORTA, 2, 1);
@@ -106,81 +110,57 @@ void set_car_movement(){
 	
 	switch(current_car_state){
 		case 'F':
-		//forward
-		//PORTB = SetBit(PORTB, 0, 1);
-		//PORTB = SetBit(PORTB, 1, 0);
-		//PORTB = SetBit(PORTB, 2, 1);
-		//PORTB = SetBit(PORTB, 3, 0);
-		set_PWM_PORTB7(max_car_speed);
-		set_PWM_PORTB6(max_car_speed);
-		set_PWM_PORTB4(max_car_speed);
-		set_PWM_PORTB3(max_car_speed);
+			//forward
+			M1_forward(car_speed);
+			M2_forward(car_speed);
 		
-		
-		break;
+			break;
 		case 'B':
-		//PORTB = SetBit(PORTB, 0, 0);
-		//PORTB = SetBit(PORTB, 1, 1);
-		//PORTB = SetBit(PORTB, 2, 0);
-		//PORTB = SetBit(PORTB, 3, 1);
-		//backward
-		break;
+			M1_reverse(car_speed);
+			M2_reverse(car_speed);
+		
+			//backward
+			break;
 		case 'L':
-		//PORTB = SetBit(PORTB, 0, 0);
-		//PORTB = SetBit(PORTB, 1, 1);
-		//PORTB = SetBit(PORTB, 2, 1);
-		//PORTB = SetBit(PORTB, 3, 0);
-		//left
-		break;
+			//left
+			M1_reverse(car_speed);
+			M2_forward(car_speed);
+			break;
 		case 'G':
-		//PORTB = SetBit(PORTB, 0, 0);
-		//PORTB = SetBit(PORTB, 1, 1);
-		//PORTB = SetBit(PORTB, 2, 1);
-		//PORTB = SetBit(PORTB, 3, 0);
-		//forward left
-		break;
+			//forward left
+			M1_reverse((255- car_speed)/2 + car_speed);
+			M2_forward(car_speed);
+			break;
 		case 'H':
-		//PORTB = SetBit(PORTB, 0, 1);
-		//PORTB = SetBit(PORTB, 1, 0);
-		//PORTB = SetBit(PORTB, 2, 0);
-		//PORTB = SetBit(PORTB, 3, 1);
-		//back left
-		break;
+			//back left
+			M1_forward((255- car_speed)/2 + car_speed);
+			M2_reverse(car_speed);
+			break;
 		case 'R':
-		//PORTB = SetBit(PORTB, 0, 1);
-		//PORTB = SetBit(PORTB, 1, 0);
-		//PORTB = SetBit(PORTB, 2, 0);
-		//PORTB = SetBit(PORTB, 3, 1);
-		//right
-		break;
+			//right
+			M1_forward(car_speed);
+			M2_reverse(car_speed);
+			break;
 		case 'I':
-		//PORTB = SetBit(PORTB, 0, 1);
-		//PORTB = SetBit(PORTB, 1, 0);
-		//PORTB = SetBit(PORTB, 2, 0);
-		//PORTB = SetBit(PORTB, 3, 1);
-		//forward right
-		break;
+			//forward right
+			M1_forward(car_speed);
+			M2_reverse((255- car_speed)/2 + car_speed);
+			break;
 		case 'J':
-		//PORTB = SetBit(PORTB, 0, 0);
-		//PORTB = SetBit(PORTB, 1, 1);
-		//PORTB = SetBit(PORTB, 2, 1);
-		//PORTB = SetBit(PORTB, 3, 0);
-		//back right
-		break;
+			//back right
+			M1_reverse(car_speed);
+			M2_forward((255- car_speed)/2 + car_speed);
+			break;
 		case 'D':
-		//stop all bluetooth disconected!!!
+			//stop all bluetooth disconected!!!
 		
-		set_car_stop();
+			set_car_stop();
 		
-		//manage emergency lights************
-		//emergency lights will flash on and off (250 ms)
-		//this can also be controlled by a button
-		
-		break;
+			break;	
 		default:
-		//stop
-		set_car_stop();
-		break;
+			//stop
+			set_car_stop();
+			break;
 	}
 }
 
