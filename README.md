@@ -74,11 +74,25 @@ Technologies and Components Used:
 
 
 Demo Video:
-//add demo video link ********
+	http://youtu.be/YGWO8oOLHX8
 
 
 
 
 Source FIles:
 
-//add source files with description of each ********
+RC_car_2014.c --- is the main portion of the program this controls everything
+movement_controls.h --- controls the movement and speed of the car
+eye_controls.h --- controls the eye movement on the LCD of the face
+blinking_control.h --- this controls the blinking of the eyes on the LCD of the face
+light_control.h --- this controls the lights on the front of the car
+face_control.h --- this contains the functions to set up the face and it controls the eyes’ looking direction
+face_characters.h --- this defines the custom characters used on the face 
+global_vars.h --- this contains the definition of the global variables shared throughout the different control files (ie. button_press)
+usart_atmega1284.h --- this contains the functions that control the receiving information from the bluetooth module
+PWM.h --- this sets up the motors to be able to control speed
+timer.h --- this code from IEEE is used to create a scheduler and run the tasks
+bit.h --- this code from IEE is used to do bit manipulation through functions
+custom_characters.h --- this is used to create the custom characters
+binary_to_hex.h --- defines several binary to hex used in the custom_characters.h
+io.c --- sets up the LCD to be used, it is included in custom_characters.h
