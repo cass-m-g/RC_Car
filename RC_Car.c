@@ -13,12 +13,12 @@
 #include "timer.h"
 #include "PWM.h"
 #include "face_characters.h"
-#include "face_control.h"
+#include "face_conrol.h"
 #include "usart_atmega1284.h"
 #include <avr/interrupt.h>
 #include "light_control.h"
 #include "blinking_control.h"
-#include "eye_control.h"
+#include "eye_controls.h"
 #include "movement_controls.h"
 
 
